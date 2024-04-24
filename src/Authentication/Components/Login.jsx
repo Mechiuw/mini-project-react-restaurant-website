@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import {Component} from 'react';
-import login from '../../assets/login.svg';
+import '../LoginStyle.css';
 
 
 class Login extends Component {
@@ -54,7 +54,7 @@ class Login extends Component {
         const {username,password} = this.state.form;
         if(!this.state.isValid) return;
 
-        if(username === "a" && password === "a"){
+        if(username === "admin" && password === "12345678"){
             // eslint-disable-next-line react/prop-types
             this.props.handleAuthentication(true);
         }
@@ -63,14 +63,14 @@ class Login extends Component {
     render() {
         return (
             <>
-                <div className="container d-flex justify-content-center align-items-center " >
-                    <div className="shadow-lg rounded-4 ">
-                        <div className="row align-items-center">
-                            <img src={login} alt="login" className="img-fluid mx-auto d-block mt-5" style={{width:'30%'}} />
-                        </div>
-                            <form onSubmit={this.handleOnSubmit} className="p-4">
+                    <div className="container d-flex justify-content-center align-items-center vh-100">
+                        <div className="d-flex rounded-5 gap-4 shadow-lg bg-white rounded-4 ">
+                            <form onSubmit={this.handleOnSubmit} className="p-5">
                                 <div className="row">
-                                    <h1 className="text-center" >Login</h1>
+                                    <h1 className="text-center">Hey! Welcome to Bahari Restaurant</h1>
+                                </div>
+                                <div className="row mt-5 pt-5">
+                                    <h6 className="text-center text-black-50">have an account? log in here.</h6>
                                 </div>
                                 <div className="row mt-4">
 
@@ -78,7 +78,7 @@ class Login extends Component {
                                     <input
                                         type="text"
                                         className="mb-5 rounded-0 border border-1 border-start-0
-                                    border-end-0 border-top-0 border-bottom-2"
+                                        border-end-0 border-top-0 border-bottom-2"
                                         name="username"
                                         id="username"
                                         onChange={this.handleChange}/>
@@ -87,17 +87,25 @@ class Login extends Component {
                                     <input
                                         type="password"
                                         className="mb-5 rounded-0 border border-1 border-start-0
-                                    border-end-0 border-top-0 border-bottom-2"
+                                        border-end-0 border-top-0 border-bottom-2"
                                         name="password"
                                         id="password"
                                         onChange={this.handleChange}/>
 
                                     <button disabled={!this.state.isValid}
-                                            className="btn btn-success rounded-5 text-white" type="submit">LOGIN</button>
+                                            className="btn btn-success rounded-5 text-white" type="submit">LOGIN
+                                    </button>
                                 </div>
                             </form>
+                            <div>
+                                <div className="p-5">
+                                    <img src="https://images.unsplash.com/photo-1556940211-ea1d97e04458?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                    width="300vh"
+                                    className="rounded-5"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
             </>
         );
     }

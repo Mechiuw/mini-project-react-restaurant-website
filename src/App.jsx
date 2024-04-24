@@ -1,14 +1,28 @@
 import React from "react";
 import './App.css'
 import Login from "./Authentication/Components/Login.jsx";
-import Header from "./Shared/Header/Header.jsx";
-import Sidebar from "./Shared/SideBar/Sidebar.jsx";
-import Dashboard from "./Shared/Dashboard/Dashboard.jsx";
+import Header from "./Components/Header/Header.jsx";
+import Sidebar from "./Components/SideBar/Sidebar.jsx";
+import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 import PropTypes from "prop-types";
-import withUIState from "./Shared/Hoc/withUiEstate.jsx";
+import withUIState from "./Components/Hoc/withUiEstate.jsx";
 
 class App extends React.Component {
     state = {
+        menus : [
+            {
+                id: "",
+                nama: "",
+                harga: "",
+            }
+        ],
+        tables : [
+            {
+                id: "",
+                nama: "",
+                status: ""
+            }
+        ],
         page: <Dashboard />,
         isAuthenticated: false,
     };
@@ -39,7 +53,8 @@ class App extends React.Component {
                 {isAuthenticated ? (
                     <div className="d-flex">
                         <Sidebar
-                            navigateTo={this.navigateTo}
+                            navigateTo={this.navigateTo} menus={this.state.menus}
+                            tables={this.state.tables}
                             handleAuthentication={this.handleAuthentication}
                         />
                         <main className="w-100 flex-grow-1">

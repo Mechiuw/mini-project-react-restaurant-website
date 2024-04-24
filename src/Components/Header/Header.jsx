@@ -1,12 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import React,{ Component } from 'react';
 import icon from "/src/assets/avatar.svg";
-import {IconSettings} from "@tabler/icons-react";
 
 export default class Header extends Component {
+
     render() {
+        // eslint-disable-next-line react/prop-types
+        const {navigateTo} = this.props;
         return (
-            <div className="d-flex justify-content-end shadow-sm px-4 py-2 bg-light">
+            <div className="d-flex ms-4 mt-3 justify-content-end hdr shadow-sm rounded-pill">
                 <button className=" btn btn-link"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
@@ -20,20 +22,12 @@ export default class Header extends Component {
                 <ul className="dropdown-menu">
                     <li className="dropdown-item-text">
                         <div className="flex-grow-1 ms-3">
-                            <h6 className="mb-1">Nikola tesla</h6>
-                            <span>nicolaTesla@gmail.com</span>
+                            <h6 className="mb-1">Mechiuw</h6>
+                            <span>matthewdpk@gmail.com</span>
                         </div>
                     </li>
                     <hr/>
-                    <li>
-                        <a className="dropdown-item" href="#">
-                            <i className="me-2">
-                                {/* eslint-disable-next-line react/jsx-no-undef */}
-                                <IconSettings size={16}/>
-                            </i>
-                            Edit Profil
-                        </a>
-                    </li>
+                    {/* eslint-disable-next-line no-undef */}
                 </ul>
             </div>
         );
