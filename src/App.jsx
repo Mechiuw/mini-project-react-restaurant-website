@@ -1,77 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
 import Login from "./Authentication/Components/Login.jsx";
 import Header from "./Components/Header/Header.jsx";
 import Sidebar from "./Components/SideBar/Sidebar.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
-import PropTypes from "prop-types";
 import withUIState from "./Components/Hoc/withUiEstate.jsx";
+import {Outlet} from "react-router-dom";
 
-class App extends React.Component {
-    navigateTo = (component) => {
-        this.setState({
-            page: component,
-        });
-    };
+function App({showToast}){
 
-    state = {
-        menus : [
-            {
-                id: "",
-                nama: "",
-                harga: "",
-            }
-        ],
-        tables : [
-            {
-                id: "",
-                nama: "",
-                status: ""
-            }
-        ],
-        page: <Dashboard />,
-        isAuthenticated: false,
-    };
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    handleAuthentication = (status) => {
-        this.setState({
-            isAuthenticated: status,
-        });
+
+    const [state,setState] = useState ({
+        menus : [],
+        tables : [],
+        page: <Dashboard/>,
+        isAuthenticated: true,
+    });
+
+    const handleAuthentication = (status) => {
+        setIsAuthenticated(true);
 
         if (status) {
-            this.props.showToast("Login Success");
+            showToast("Login Success");
         } else {
-            this.props.showToast("Logout Success");
+            showToast("Logout Success");
         }
     };
 
-    render() {
-        const { page, isAuthenticated } = this.state;
+
 
         return (
             <>
                 {isAuthenticated ? (
                     <div className="d-flex">
                         <Sidebar
-                            navigateTo={this.navigateTo} menus={this.state.menus}
-                            tables={this.state.tables}
-                            handleAuthentication={this.handleAuthentication}
+                            handleAuthentication={handleAuthentication}
                         />
                         <main className="w-100 flex-grow-1">
-                            <Header handleAuthentication={this.handleAuthentication} />
-                            {page}
+                            <Header handleAuthentication={handleAuthentication} />
+                            {/*<Dashboard handleAuthentication={handleAuthentication} />*/}
+                            <Outlet/>
                         </main>
                     </div>
                 ) : (
-                     <Login handleAuthentication={this.handleAuthentication} />
+                     <Login handleAuthentication={handleAuthentication} />
                 )}
             </>
         );
-    }
 }
-
-App.propTypes = {
-    showToast: PropTypes.func,
-};
 
 const AppComponent = withUIState(App);
 

@@ -2,19 +2,84 @@
 /* eslint-disable no-unused-vars */
 import { IconRefresh } from '@tabler/icons-react';
 import { IconDeviceFloppy } from '@tabler/icons-react';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import React,{useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {postMenuAction, putMenuAction} from "./Slice/MenuSlice.js";
+import WithUiEstate from "../Components/Hoc/withUiEstate.jsx";
 
-class MenuForm extends Component {
-    render() {
-        const {
-            handleChange,
-            handleReset,
-            handleSubmit,
-            error,
-            form
-        } = this.props
+function MenuForm({handleShowLoading,showToast,handleHide}){
+    const [form,setForm] =  useState({
+            id:"",
+            nama:"",
+            harga:"",
+    });
 
+    const [error, setError] = useState({
+        nama:"",
+        harga:"",
+    });
+
+    const dispatch = useDispatch();
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+            setForm((prevState) => {
+                return {
+                    ...prevState,
+                    [name]: value
+                }
+            });
+    };
+
+    const handleReset = () => {
+        setForm(() =>{
+            const initial = {
+                id: "",
+                nama: "",
+                harga: "",
+            };
+            return initial;
+        });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        let errors ={};
+
+        if(!form.nama){
+            errors.nama = "Silahkan tambahkan nama";
+        }
+
+        if(!form.harga){
+            errors.harga = "Silahkan tambahkan harga";
+        }
+
+        setError(errors)
+        if(Object.keys(errors).length > 0)return;
+
+            if(form.id){
+                const menu = {...form};
+                dispatch(putMenuAction(menu))
+                handleShowLoading();
+                // eslint-disable-next-line react/prop-types
+                showToast("done changed");
+                handleReset();
+            }else {
+                const menu = {
+                    ...form,
+                    id: new Date().getMilliseconds().toString(),
+                };
+                console.log(menu)
+                dispatch(postMenuAction(menu))
+                handleShowLoading();
+                // eslint-disable-next-line react/prop-types
+                showToast("done added ");
+                // eslint-disable-next-line react/prop-types
+                handleHide();
+            }
+            handleReset();
+    }
         return (
             <>
                 <form action="#" className='shadow-sm p-4 rounded-4'>
@@ -26,7 +91,7 @@ class MenuForm extends Component {
                         )}
 
                         <label htmlFor="harga" className='from-tabel'>Harga</label>
-                        <textarea onChange={handleChange} id='harga' className={`form-control ${error.harga && 'is-invalid'}`} name='harga' value={form.harga} rows="3" />
+                        <input type="number" onChange={handleChange} id='harga' className={`form-control ${error.harga && 'is-invalid'}`} name='harga' value={form.harga} rows="3" />
                         {error.harga && (
                             <div className='invalid-feedback'>{error.harga}</div>
                         )}
@@ -49,17 +114,8 @@ class MenuForm extends Component {
                 </form>
             </>
         );
-    }
-}
-
-MenuForm.propTypes = {
-    handleChangeSubmit : PropTypes.func,
-    handleChange : PropTypes.func,
-    handleChangeStatus : PropTypes.func,
-    handleReset : PropTypes.func,
-    error : PropTypes.object,
-    form : PropTypes.object
 }
 
 
-export default MenuForm;
+const MenuWithUiEstate = WithUiEstate(MenuForm);
+export default MenuWithUiEstate;

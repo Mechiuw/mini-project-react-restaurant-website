@@ -1,34 +1,65 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom/client";
 import {
     createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
-import App from "../App.jsx";
+   } from "react-router-dom";
 import Menu from "../Menu/Menu.jsx";
 import Table from "../Table/Table.jsx";
 import Home from "../Home/Home.jsx";
 import Profile from "../User/Profile.jsx";
+import MenuWithUiEstate from "../Menu/MenuForm.jsx";
+import MenuListUiEstate from "../Menu/MenuList.jsx";
+import AppComponent from "../App.jsx";
+import Dashboard from "../Components/Dashboard/Dashboard.jsx";
+import TableFormWithUiEstate from "../Table/TableForm.jsx";
+import TableListUiEstate from "../Table/TableList.jsx";
 
 const router = createBrowserRouter([
     {
         path:"/",
-        element:<App/>
-    },{
-        path:"/menu",
-        element:<Menu/>
-    },{
-        path:"/table",
-        element:<Table/>
+        element:<AppComponent/>,
+        children:[
+            {
+                path:"menu",
+                element:<Menu/>,
+                children:[
+                    {
+                        path:"menu-form",
+                        element: <MenuWithUiEstate/>
+                    },
+                    {
+                        path:"menu-list",
+                        element: <MenuListUiEstate/>
+                    }
+                ]
+            },{
+                path:"table",
+                element:<Table/>,
+                children:[
+                    {
+                        path:"table-form",
+                        element: <TableFormWithUiEstate/>
+                    },
+                    {
+                        path:"table-list",
+                        element:<TableListUiEstate/>
+                    }
+                ]
+            },
+            {
+                path:"user",
+                element:<Profile/>
+            },
+            {
+                path:"dashboard",
+                element:<Dashboard/>
+            }
+        ]
     },
     {
-        path:"/Home",
+        path:"/home",
         element:<Home/>
     },
-    {
-        path:"/user",
-        element:<Profile/>
-    }
+
 ]);
 
 export default router;

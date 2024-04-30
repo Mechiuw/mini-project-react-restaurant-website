@@ -2,11 +2,9 @@
 import React,{ Component } from 'react';
 import icon from "/src/assets/avatar.svg";
 
-export default class Header extends Component {
+export default function Header(){
 
-    render() {
         // eslint-disable-next-line react/prop-types
-        const {navigateTo} = this.props;
         return (
             <div className="d-flex ms-4 mt-3 justify-content-end bg-light shadow-lg rounded-pill">
                 <button className=" btn btn-link"
@@ -31,6 +29,5 @@ export default class Header extends Component {
                 </ul>
             </div>
         );
-    }
 }
 

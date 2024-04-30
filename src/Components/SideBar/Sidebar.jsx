@@ -8,22 +8,17 @@ import {
 } from "@tabler/icons-react";
 import {IconHome2} from "@tabler/icons-react";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import Dashboard from "../Dashboard/Dashboard.jsx";
 import './sidebarstyle.css';
-import PropTypes from "prop-types";
-import menus from "i/lib/util.js";
-import tables from "i/lib/util.js";
 import {Link} from "react-router-dom";
 
-export default class Sidebar extends Component{
+export default function Sidebar ({menus,tables,handleAuthentication}){
 
-    handleLogout = () => {
+    const handleLogout = () => {
         if(!confirm("Apakah ingin logout?")) return;
-        this.props.handleAuthentication(false);
+        handleAuthentication(false);
     }
-    render() {
+
         // eslint-disable-next-line react/prop-types
-        const {navigateTo,menus,tables} = this.props;
 
         return (
             <div className={"sbC ms-2 mt-3 text-white p-4 shadow-lg rounded-4"}
@@ -57,7 +52,7 @@ export default class Sidebar extends Component{
                         <div className="collapse" id="dashboard-collapse">
                             <ul className="text-white cursor-pointer text-black d-flex flex-column gap-3 btn-toggle-nav list-unstyled mx-4">
                                 {/* eslint-disable-next-line no-undef */}
-                                <Link to="/" style={{textDecoration: 'none'}}>
+                                <Link to="dashboard" style={{textDecoration: 'none'}}>
                                     <li className='cursor-pointer text-black'>
                                         <i className='me-3 text-black'>
                                             <IconAtom/>
@@ -65,6 +60,7 @@ export default class Sidebar extends Component{
                                         <span>Dashboard</span>
                                     </li>
                                 </Link>
+
                                 <Link to="/home" style={{textDecoration: 'none'}}>
                                     <li className='cursor-pointer text-black'>
                                         <i className='me-3 text-black'>
@@ -74,7 +70,7 @@ export default class Sidebar extends Component{
                                     </li>
                                 </Link>
                                 {/* eslint-disable-next-line no-undef */}
-                                <Link to="/menu" style={{textDecoration: 'none'}}>
+                                <Link to="menu" style={{textDecoration: 'none'}}>
                                     <li className="cursor-pointer text-black">
                                         <i className="me-3 text-black">
                                             <IconToolsKitchen3/>
@@ -82,7 +78,7 @@ export default class Sidebar extends Component{
                                         <span>Menu</span>
                                     </li>
                                 </Link>
-                                <Link to="/table" style={{textDecoration: 'none'}}>
+                                <Link to="table" style={{textDecoration: 'none'}}>
                                     <li className="cursor-pointer text-black">
                                         <i className="me-3 text-black">
                                             <IconBrandAirtable/>
@@ -112,7 +108,7 @@ export default class Sidebar extends Component{
                         <div className="collapse" id="dashboard-collapse">
                             <ul className="text-white cursor-pointer text-black d-flex flex-column gap-3 btn-toggle-nav list-unstyled mx-4">
                                 {/* eslint-disable-next-line no-undef */}
-                                <Link to="/user" style={{textDecoration: 'none'}}>
+                                <Link to="user" style={{textDecoration: 'none'}}>
                                     <li className='cursor-pointer text-black'>
                                         <i className='me-3 text-black'>
                                             <IconAtom/>
@@ -124,7 +120,7 @@ export default class Sidebar extends Component{
                         </div>
                         <div className="d-flex mt-3 fw-semibold text-black">
                             <i className="me-3">
-                                <IconLogout2 onClick={this.handleLogout}/>
+                                <IconLogout2 onClick={handleLogout}/>
                             </i>
                             <span>Logout</span>
                         </div>
@@ -132,14 +128,5 @@ export default class Sidebar extends Component{
                 </nav>
             </div>
         );
-    }
-}
-
-Sidebar.propTypes = {
-    navigateTo: PropTypes.func,
-    menus:
-    menus.array,
-    tables:
-    tables.array
 }
 

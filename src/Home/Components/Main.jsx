@@ -7,7 +7,6 @@ function Main(props) {
             <div>
                 <NavBar/>
                 <div className="bs">
-
                 </div>
             </div>
         </div>

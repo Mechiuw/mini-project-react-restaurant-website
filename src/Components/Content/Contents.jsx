@@ -1,13 +1,7 @@
 import React, {Component} from 'react';
 import '/src/Components/Content/ContentsStyle.css';
-import Menu from "../../Menu/Menu.jsx";
-import PropTypes from "prop-types";
-import menus from "i/lib/util.js";
-import tables from "i/lib/util.js";
 
-
-class Contents extends Component{
-    render() {
+function Contents(){
 
         return (
             <div className="container mt-4 mb-4">
@@ -25,7 +19,6 @@ class Contents extends Component{
                 </div>
             </div>
         );
-    }
 }
 
 

@@ -2,19 +2,81 @@
 /* eslint-disable no-unused-vars */
 import { IconRefresh } from '@tabler/icons-react';
 import { IconDeviceFloppy } from '@tabler/icons-react';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import React, {Component, useState} from 'react';
+import {useDispatch} from "react-redux";
+import WithUiEstate from "../Components/Hoc/withUiEstate.jsx";
+import {postTableAction, putTableAction} from "./Slice/TableSlice.js";
 
-class MenuForm extends Component {
-    render() {
-        const {
-            handleChange,
-            handleReset,
-            handleSubmit,
-            error,
-            form
-        } = this.props
+function TableForm({handleShowLoading,showToast,handleHide}) {
+    const [form, setForm] = useState({
+        id: "",
+        nama: "",
+        status: ""
+    });
 
+    const [error, setError] = useState({
+        nama: "",
+        harga: ""
+    })
+
+    const dispatch = useDispatch();
+
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setForm((prevState) => {
+            return {
+                ...prevState,
+                [name]: value
+            }
+        });
+    };
+
+    const handleReset = () => {
+        setForm(() => {
+            const initial = {
+                id: "",
+                nama: "",
+                status: ""
+            }
+            return initial
+        })
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+            let errors ={};
+
+            if(form.nama === ""){
+                errors.nama = "Tolong masukkan nama";
+            }
+
+            if(form.status === ""){
+                errors.status = "Tolong masukkan status meja";
+            }
+
+            setError(errors)
+            if(Object.keys(errors).length > 0)return;
+            // eslint-disable-next-line react/prop-types
+
+                if(form.id){
+                    const mj = {...form};
+                    dispatch(putTableAction(mj))
+                    // eslint-disable-next-line react/prop-types
+                    showToast("done changed");
+                    handleReset();
+                }else {
+                    const mj = {
+                        ...form,
+                        id: new Date().getMilliseconds().toString(),
+                    };
+                    dispatch(postTableAction(mj))
+                    // eslint-disable-next-line react/prop-types
+                    showToast("done added           ");
+                    // eslint-disable-next-line react/prop-types
+                    handleHide();
+                }
+                handleReset();
+        }
         return (
             <>
                 <form action="#" className='shadow-sm p-4 rounded-4'>
@@ -50,17 +112,7 @@ class MenuForm extends Component {
                 </form>
             </>
         );
-    }
 }
 
-MenuForm.propTypes = {
-    handleChangeSubmit : PropTypes.func,
-    handleChange : PropTypes.func,
-    handleChangeStatus : PropTypes.func,
-    handleReset : PropTypes.func,
-    error : PropTypes.object,
-    form : PropTypes.object
-}
-
-
-export default MenuForm;
+const TableFormWithUiEstate = WithUiEstate(TableForm);
+export default TableFormWithUiEstate;

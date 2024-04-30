@@ -41,6 +41,9 @@ importers:
       react-router-dom:
         specifier: ^6.23.0
         version: 6.23.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      redux:
+        specifier: ^5.0.1
+        version: 5.0.1
       sass:
         specifier: ^1.75.0
         version: 1.75.0

@@ -1,15 +1,31 @@
 // eslint-disable-next-line no-unused-vars
 import React, {Component} from 'react';
 import {IconEdit, IconTrash} from "@tabler/icons-react";
+import {useDispatch, useSelector} from "react-redux";
+import LoadingAnimation from "../Components/Animation/LoadingAnimation.jsx";
+import WithUiEstate from "../Components/Hoc/withUiEstate.jsx";
+import {removeTableAction} from "./Slice/TableSlice.js";
 
-class TodoList extends Component {
-    render(){
-        const {
-            // eslint-disable-next-line react/prop-types
-            mejas,
-            // eslint-disable-next-line react/prop-types
-            handleDelete,
-        } = this.props
+function TableList ({showToast}){
+
+    const {tables, isLoading } = useSelector((state) =>  state.table);
+
+    const dispatch = useDispatch();
+
+    if(isLoading){
+        return <LoadingAnimation/>
+    }
+
+    if(!Array.isArray(tables)) {
+        return <div>no tables</div>
+    }
+
+    const handleDelete = (id) => {
+        if(!confirm("are you sure you want to delete this?"))return;
+        dispatch(removeTableAction(id))
+        // eslint-disable-next-line react/prop-types
+        showToast("done changed         ");
+    };
         return (
             <div className="table-responsive">
                 <table className="table">
@@ -22,10 +38,10 @@ class TodoList extends Component {
                     </thead>
                     <tbody>
                     {/* eslint-disable-next-line react/prop-types */}
-                    {mejas.map((item) => {
+                    {tables.map((item,idx) => {
                         return (
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
+                            <tr key={idx}>
+                                <td>{++idx}</td>
                                 <td>{item.nama}</td>
                                 <td>{item.status}</td>
                                 <td>
@@ -47,6 +63,6 @@ class TodoList extends Component {
                 </table>
             </div>
         );
-    }
 }
-export default TodoList;
+const TableListUiEstate = WithUiEstate(TableList);
+export default TableListUiEstate;
