@@ -21,7 +21,7 @@ export const  putTableAction = createAsyncThunk('table/putTable',
     })
 
 export const removeTableAction = createAsyncThunk('table/deleteTable', async (payload,thunkAPI) => {
-    await service.delete(payload)
+    await service.deleteTable(payload)
     const response = await thunkAPI.dispatch(getTableAction())
     return response.payload;
 })
@@ -29,9 +29,9 @@ export const removeTableAction = createAsyncThunk('table/deleteTable', async (pa
 const tableSlice = createSlice({
     name: "table",
     initialState: {
-        tables:[],
-        table:null,
-        isLoading:false,
+        tables: [],
+        table: null,
+        isLoading: false,
         message:''
     },
     reducers:{

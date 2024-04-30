@@ -10,9 +10,9 @@ function MenuList({showToast}){
     const {menus, isLoading } = useSelector((state) => state.menu);
 
     const dispatch = useDispatch();
-    // if(isLoading){
-    //     return <LoadingAnimation/>
-    // }
+    if(isLoading){
+        return <LoadingAnimation/>
+    }
 
     if(!Array.isArray(menus)){
         return <div>no menus found</div>

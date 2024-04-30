@@ -45,8 +45,6 @@ function TableList ({showToast}){
                                 <td>{item.nama}</td>
                                 <td>{item.status}</td>
                                 <td>
-                                </td>
-                                <td>
                                     <div className="d-flex gap-2">
                                         <button
                                             onClick={() => handleDelete(item.id)}
