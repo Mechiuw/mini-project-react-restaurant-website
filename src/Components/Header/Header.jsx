@@ -8,7 +8,7 @@ export default class Header extends Component {
         // eslint-disable-next-line react/prop-types
         const {navigateTo} = this.props;
         return (
-            <div className="d-flex ms-4 mt-3 justify-content-end hdr shadow-sm rounded-pill">
+            <div className="d-flex ms-4 mt-3 justify-content-end bg-light shadow-lg rounded-pill">
                 <button className=" btn btn-link"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"

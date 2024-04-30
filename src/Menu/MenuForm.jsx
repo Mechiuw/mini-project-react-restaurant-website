@@ -18,8 +18,6 @@ class MenuForm extends Component {
         return (
             <>
                 <form action="#" className='shadow-sm p-4 rounded-4'>
-                    <h3>Menu</h3>
-
                     <div className='mb-3'>
                         <label htmlFor="nama" className='from-tabel'>Nama</label>
                         <input onChange={handleChange} type="text" className={`form-control ${error.nama && 'is-invalid'}`} id='nama' name='nama' value={form.nama} />

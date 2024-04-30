@@ -54,7 +54,7 @@ class Login extends Component {
         const {username,password} = this.state.form;
         if(!this.state.isValid) return;
 
-        if(username === "admin" && password === "12345678"){
+        if(username === "a" && password === "a"){
             // eslint-disable-next-line react/prop-types
             this.props.handleAuthentication(true);
         }
@@ -62,32 +62,33 @@ class Login extends Component {
 
     render() {
         return (
-            <>
+            <div className="background-login">
                     <div className="container d-flex justify-content-center align-items-center vh-100">
-                        <div className="d-flex rounded-5 gap-4 shadow-lg bg-white rounded-4 ">
+                        <div className="d-flex gap-4 shadow-lg  bgl rounded-3 ">
                             <form onSubmit={this.handleOnSubmit} className="p-5">
                                 <div className="row">
-                                    <h1 className="text-center">Hey! Welcome to Bahari Restaurant</h1>
+                                    <h1 className="text-center text-white">Welcome to Bahari Restaurant</h1>
+                                    <h6 className="text-center text-white">Jakarta - Indonesia</h6>
                                 </div>
-                                <div className="row mt-5 pt-5">
-                                    <h6 className="text-center text-black-50">have an account? log in here.</h6>
+                                <div className="row pt-5" style={{marginTop:"77px"}}>
+                                    <h6 className="text-center text-white-50">have an account? log in here.</h6>
                                 </div>
                                 <div className="row mt-4">
 
-                                    <label className="mb-1">Username</label>
+                                    <label className="mb-1 text-white">Username</label>
                                     <input
                                         type="text"
-                                        className="mb-5 rounded-0 border border-1 border-start-0
-                                        border-end-0 border-top-0 border-bottom-2"
+                                        className="mb-4 border border-start-1 rounded-pill mt-2
+                                        border-end-1 border-top-1 border-bottom-2 bg-transparent text-white"
                                         name="username"
                                         id="username"
                                         onChange={this.handleChange}/>
 
-                                    <label className="mb-1">Password</label>
+                                    <label className="mb-1 text-white">Password</label>
                                     <input
                                         type="password"
-                                        className="mb-5 rounded-0 border border-1 border-start-0
-                                        border-end-0 border-top-0 border-bottom-2"
+                                        className="mb-5 border border-start-1 rounded-pill mt-2
+                                        border-end-1 border-top-1 border-bottom-2 bg-transparent text-white"
                                         name="password"
                                         id="password"
                                         onChange={this.handleChange}/>
@@ -106,7 +107,7 @@ class Login extends Component {
                             </div>
                         </div>
                     </div>
-            </>
+            </div>
         );
     }
 }

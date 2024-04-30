@@ -1,5 +1,4 @@
 import React from "react";
-import './App.css'
 import Login from "./Authentication/Components/Login.jsx";
 import Header from "./Components/Header/Header.jsx";
 import Sidebar from "./Components/SideBar/Sidebar.jsx";
@@ -8,6 +7,12 @@ import PropTypes from "prop-types";
 import withUIState from "./Components/Hoc/withUiEstate.jsx";
 
 class App extends React.Component {
+    navigateTo = (component) => {
+        this.setState({
+            page: component,
+        });
+    };
+
     state = {
         menus : [
             {
@@ -25,12 +30,6 @@ class App extends React.Component {
         ],
         page: <Dashboard />,
         isAuthenticated: false,
-    };
-
-    navigateTo = (component) => {
-        this.setState({
-            page: component,
-        });
     };
 
     handleAuthentication = (status) => {

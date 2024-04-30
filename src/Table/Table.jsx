@@ -125,7 +125,7 @@ class Table extends Component {
     render() {
         return (
             <div className='container-fluid pt-4 px-4'>
-                <h2>Todo</h2>
+                <h2>Table</h2>
                 <TableForm
                     handleChange={this.handleChange}
                     handleReset={this.handleReset}
