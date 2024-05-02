@@ -23,7 +23,7 @@ function Profile(){
         toggleEditing();
     }
     return (
-        <div className="container d-flex ">
+        <div className="container d-flex text-white ">
             <div className=" p-4  ">
                 <img className="rounded-4" src="https://images.unsplash.com/photo-1522556189639-b150ed9c4330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="profile pic"
                      width="300"/>

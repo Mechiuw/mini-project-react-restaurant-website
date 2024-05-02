@@ -15,7 +15,7 @@ function MenuList({showToast}){
     }
 
     if(!Array.isArray(menus)){
-        return <div>no menus found</div>
+        return <div className="text-white">no menus found, add new menu</div>
     }
     const handleDelete = (id) => {
         console.log(id)
@@ -27,7 +27,7 @@ function MenuList({showToast}){
 
         return (
             <div className="table-responsive">
-                <table className="table">
+                <table className="table table-dark">
                     <thead>
                     <tr>
                         <th>No</th>

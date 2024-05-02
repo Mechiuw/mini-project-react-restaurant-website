@@ -82,6 +82,9 @@ const tableSlice = createSlice({
             state.tables = payload;
             state.isLoading = false;
         })
+        builder.addCase(removeTableAction.rejected, state => {
+            state.isLoading = false;
+        });
     }
 })
 

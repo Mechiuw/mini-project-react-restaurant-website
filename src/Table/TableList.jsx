@@ -8,7 +8,7 @@ import {removeTableAction} from "./Slice/TableSlice.js";
 
 function TableList ({showToast}){
 
-    const {tables, isLoading } = useSelector((state) =>  state.table);
+    const {tables, isLoading} = useSelector((state) =>  state.table);
 
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ function TableList ({showToast}){
     }
 
     if(!Array.isArray(tables)) {
-        return <div>no tables</div>
+        return <div className="text-white">no tables found, add a new table</div>
     }
 
     const handleDelete = (id) => {
@@ -28,12 +28,13 @@ function TableList ({showToast}){
     };
         return (
             <div className="table-responsive">
-                <table className="table">
+                <table className="table table-dark">
                     <thead>
                     <tr>
                         <th>No</th>
                         <th>Meja</th>
                         <th>Status</th>
+                        <th>Booked By</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -44,6 +45,7 @@ function TableList ({showToast}){
                                 <td>{++idx}</td>
                                 <td>{item.nama}</td>
                                 <td>{item.status}</td>
+                                <td>{item.booked}</td>
                                 <td>
                                     <div className="d-flex gap-2">
                                         <button

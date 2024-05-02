@@ -1,4 +1,6 @@
 .sbC{
-    background-color: #f3f6f4;
+    background-color: #292b2c;
     box-shadow: 5px 5px 5px rgba(2, 2, 2, 2.5), 10px 10px 10px rgba(2, 2, 2, 2.3);
+    border: solid 2px #333436;
+    padding-right: 80px;
 }

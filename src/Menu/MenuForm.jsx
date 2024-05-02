@@ -6,29 +6,64 @@ import React,{useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {postMenuAction, putMenuAction} from "./Slice/MenuSlice.js";
 import WithUiEstate from "../Components/Hoc/withUiEstate.jsx";
+import * as z from "zod";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {postTableAction} from "../Table/Slice/TableSlice.js";
+
+const schema = z.object({
+    nama : z.string().min(2,{message : 'name menu required'}),
+    harga : z.string().min(2,{message : 'price menu required'}),
+})
+
 
 function MenuForm({handleShowLoading,showToast,handleHide}){
+    
+    const {
+        register,
+        handleSubmit,
+        formState: { errors,isValid},
+    } = useForm({
+        mode: "onChange",
+        resolver : zodResolver(schema)
+    })
+    console.log(errors)
+
+    const onSubmit = (data) => {
+        if(data.id){
+            const formdata = {...data}
+            dispatch(putMenuAction(formdata))
+            handleShowLoading();
+            handleReset();
+            showToast("done changed");
+        } else {
+            const formdata = {
+                ...data,
+                id: new Date().getMilliseconds().toString(),
+            };
+            console.log(formdata)
+            dispatch(postMenuAction(formdata))
+            handleShowLoading();
+            handleReset();
+            showToast("done added ");
+            handleHide();
+        }
+    }
+
     const [form,setForm] =  useState({
             id:"",
             nama:"",
             harga:"",
     });
 
-    const [error, setError] = useState({
-        nama:"",
-        harga:"",
-    });
-
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-            setForm((prevState) => {
-                return {
+            setForm((prevState) => ({
                     ...prevState,
                     [name]: value
-                }
-            });
+            }));
     };
 
     const handleReset = () => {
@@ -42,69 +77,31 @@ function MenuForm({handleShowLoading,showToast,handleHide}){
         });
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        let errors ={};
-
-        if(!form.nama){
-            errors.nama = "Silahkan tambahkan nama";
-        }
-
-        if(!form.harga){
-            errors.harga = "Silahkan tambahkan harga";
-        }
-
-        setError(errors)
-        if(Object.keys(errors).length > 0)return;
-
-            if(form.id){
-                const menu = {...form};
-                dispatch(putMenuAction(menu))
-                handleShowLoading();
-                // eslint-disable-next-line react/prop-types
-                showToast("done changed");
-                handleReset();
-            }else {
-                const menu = {
-                    ...form,
-                    id: new Date().getMilliseconds().toString(),
-                };
-                console.log(menu)
-                dispatch(postMenuAction(menu))
-                handleShowLoading();
-                // eslint-disable-next-line react/prop-types
-                showToast("done added ");
-                // eslint-disable-next-line react/prop-types
-                handleHide();
-            }
-            handleReset();
-    }
         return (
             <>
-                <form action="#" className='shadow-sm p-4 rounded-4'>
-                    <div className='mb-3'>
-                        <label htmlFor="nama" className='from-tabel'>Nama</label>
-                        <input onChange={handleChange} type="text" className={`form-control ${error.nama && 'is-invalid'}`} id='nama' name='nama' value={form.nama} />
-                        {error.nama && (
-                            <div className='invalid-feedback'>{error.nama}</div>
+                <form action="#" className='shadow-sm p-4 rounded-4' onSubmit={handleSubmit(onSubmit)}>
+                    <div className='mb-2'>
+                        <label htmlFor="nama" className='mb-1 from-tabel text-white'>Nama</label>
+                        <input {...register("nama")} onChange={handleChange} type="text" className={`form-control ${errors.nama && 'is-invalid'} bg-transparent border border-white text-white`} id='nama' name='nama' value={form.nama} />
+                        {errors.nama && (
+                            <div className='invalid-feedback'>{errors.nama}</div>
                         )}
 
-                        <label htmlFor="harga" className='from-tabel'>Harga</label>
-                        <input type="number" onChange={handleChange} id='harga' className={`form-control ${error.harga && 'is-invalid'}`} name='harga' value={form.harga} rows="3" />
-                        {error.harga && (
-                            <div className='invalid-feedback'>{error.harga}</div>
+                        <label htmlFor="harga" className='mt-4 mb-1 from-tabel text-white'>Harga</label>
+                        <input type="number" {...register("harga")} onChange={handleChange} id='harga' className={`form-control ${errors.harga && 'is-invalid'} bg-transparent border border-white text-white`} name='harga' value={form.harga} rows="3" />
+                        {errors.harga && (
+                            <div className='invalid-feedback'>{errors.harga}</div>
                         )}
                     </div>
 
                     <div className='d-flex gap-2 mt-4'>
-                        <button type='submit' onClick={handleSubmit} className='btn btn-dark text-white me-2 d-flex align-items-center gap-2'>
+                        <button type='submit' disabled={!isValid} className='btn btn-info text-black me-2 d-flex align-items-center rounded-pill gap-2'>
                             <i>
                                 <IconDeviceFloppy />
                                 Submit
                             </i>
                         </button>
-                        <button type='submit' onClick={handleReset} className='btn btn-outline-dark text-black me-2 d-flex align-items-center gap-2'>
+                        <button type='submit' onClick={handleReset} className='btn btn-outline-info text-info me-2 d-flex align-items-center rounded-pill gap-2'>
                             <i>
                                 <IconRefresh />
                                 Reset

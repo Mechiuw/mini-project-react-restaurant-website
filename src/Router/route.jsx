@@ -12,19 +12,21 @@ import AppComponent from "../App.jsx";
 import Dashboard from "../Components/Dashboard/Dashboard.jsx";
 import TableFormWithUiEstate from "../Table/TableForm.jsx";
 import TableListUiEstate from "../Table/TableList.jsx";
+import Shop from "../Shop/Shop.jsx";
+import LoadingAnimation from "../Components/Animation/LoadingAnimation.jsx";
 
 const router = createBrowserRouter([
     {
         path:"/",
-        element:<AppComponent/>,
+        element: <AppComponent/>,
         children:[
             {
                 path:"menu",
-                element:<Menu/>,
+                element: <Menu/>,
                 children:[
                     {
                         path:"menu-form",
-                        element: <MenuWithUiEstate/>
+                        element:<MenuWithUiEstate/>
                     },
                     {
                         path:"menu-list",
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
             {
                 path:"dashboard",
                 element:<Dashboard/>
+            },
+            {
+                path:"shop",
+                element:<Shop/>
             }
         ]
     },

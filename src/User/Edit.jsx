@@ -41,24 +41,24 @@ export default class Edit extends Component {
     {
         return (
             <form onSubmit={this.handleSubmit}>
-                <div className="mb-3">
+                <div className="mb-3 ">
                     <label htmlFor="exampleInputEmail1" className="form-label">Name </label>
-                    <input type="text" name="name" className="form-control" id="editname" onChange={this.handleChange} />
+                    <input type="text" name="name" className="form-control bg-transparent border-white text-white" id="editname" onChange={this.handleChange} />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputPassword1" className="form-label">Role </label>
-                    <input type="text" name="role" className="form-control" id="roles" onChange={this.handleChange}/>
+                    <label htmlFor="exampleInputPassword1" className="form-label bg-transparent border-white text-white">Role </label>
+                    <input type="text" name="role" className="form-control bg-transparent border-white text-white" id="roles" onChange={this.handleChange}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Country </label>
-                    <input type="text" name="country" className="form-control" id="country" onChange={this.handleChange}/>
+                    <input type="text" name="country" className="form-control bg-transparent border-white text-white" id="country" onChange={this.handleChange}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Description </label>
-                    <input type="text" name="description" className="form-control" id="desc" onChange={this.handleChange}/>
+                    <input type="text" name="description" className="form-control bg-transparent border-white text-white" id="desc" onChange={this.handleChange}/>
                 </div>
                 <div className="mb-3">
-                    <button type="submit" className="my-2 bg-dark text-white rounded-2 border-0">Save</button>
+                    <button type="submit" className="my-2 bg-white text-black rounded-2 border-0 ">Save</button>
                 </div>
             </form>
         );
