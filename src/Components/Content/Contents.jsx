@@ -44,10 +44,11 @@ function Contents(){
 
                 <div className="left rounded-5"  onMouseEnter={() => handleHover(hiddenContentRefLeftT,1)}
                      onMouseLeave={() => handleHoverOff(hiddenContentRefLeftT,0)}>
-                    <Link to="/user" style={{textDecoration: 'none'}}>
+                    <Link to="/shop" style={{textDecoration: 'none'}}>
                     <div ref={hiddenContentRefLeftT} className="layerLT  text-light">
-                        <h3 className="mt-2">User Settings</h3>
-                        <p className="mt-2"> set your personal preferences on this application through here</p>
+                        <h3 className="mt-2">Bring it Home</h3>
+                        <p className="mt-2"> Home dining experience? Order your favorite meals
+                            online<br/> and enjoy a delicious dining experience without ever leaving home.</p>
                     </div>
                     </Link>
                 </div>

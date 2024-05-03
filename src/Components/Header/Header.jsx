@@ -24,7 +24,7 @@ export default function Header(){
         gsap.set(button,{opacity:0})
 
         const handleMouseEnter = () => {
-            gsap.to(header,{y:'0px', duration:0.7})
+            gsap.to(header,{y:'-18px', duration:0.7})
             gsap.effects.fade(button,{duration:1,opacity : 1})
         }
         const handleMouseExit = () => {
@@ -42,7 +42,7 @@ export default function Header(){
     })
 
         return (
-            <div className="d-flex ms-4 me-4 mt-2 justify-content-end hdr shadow-lg rounded-pill"
+            <div className="d-flex ms-4 me-4 mt-2 justify-content-end hdr shadow-lg rounded-4"
             ref={headerRef}>
                 <button ref={buttonRef}
                     className="btn btn-link"

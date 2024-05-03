@@ -1,11 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import {useState} from 'react';
 import '../LoginStyle.css';
 import { useNavigate} from "react-router-dom";
 import * as z from 'zod';
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import axios from "axios";
+import AuthService from "../Service/AuthService.js";
+import axiosInstance from "../Instance/axiosInstance.js";
+import {useEffect} from "react";
 
 const schema = z.object({
     username : z.string().min(1,{message: 'Username is required , least 5 characters'}),
@@ -13,7 +14,8 @@ const schema = z.object({
 })
 
 function Login({handleAuthentication}) {
-
+    const authService = AuthService();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -21,20 +23,43 @@ function Login({handleAuthentication}) {
         formState: { errors ,isValid},
     } = useForm({
         mode: "onChange",
-        resolver: zodResolver(schema)
+        resolver: zodResolver(schema),
+        defaultValues : {
+            username : sessionStorage.getItem("username"),
+            password: sessionStorage.getItem("password"),
+        }
     });
     console.log(errors)
 
     const onSubmit = async (data) => {
-        // const response = await axios.post (
-        //         "/api/auth/login", data
-        //     );
-        // console.log(response);
-        handleAuthentication(true);
-        navigate("/dashboard");
-    }
+        try {
+            const response = await authService.login(data);
+            if(response && response.statusCode === 200){
+                const {token,userId,roles} = response.data;
+                sessionStorage.setItem("token",token);
+                sessionStorage.setItem("userId",userId);
+                sessionStorage.setItem("roles",JSON.stringify(roles));
 
-    const navigate = useNavigate();
+                if (data.username) {
+                    sessionStorage.setItem("username", data.username);
+                }
+                if(data.password){
+                    sessionStorage.setItem("password", data.password);
+                }
+
+                handleAuthentication(true);
+                navigate("/dashboard");
+            }
+        } catch(error){
+            console.log(error)
+        }
+    }
+    // useEffect(()=>{
+    //     if(authService.validateToken()){
+    //         navigate("/dashboard");
+    //     }
+    // },[authService,navigate])
+
 
 
         return (
@@ -65,7 +90,7 @@ function Login({handleAuthentication}) {
                                         id="username"
                                         {...register("username")}/>
 
-                                    <label className="mb-1 text-white">Password</label>
+                                    <label className="mb-1 mt-3 text-white">Password</label>
                                     {errors.password && (
                                         <div className="invalid-feedback">
                                             {errors.password.message}

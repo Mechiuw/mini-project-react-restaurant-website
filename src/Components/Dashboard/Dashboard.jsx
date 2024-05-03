@@ -7,7 +7,7 @@ import '../Dashboard/Dashboard.css'
 
 export default function Dashboard({navigateTo,menus,tables}) {
     return (
-            <div className='dash pt-4 px-4'>
+            <div className='dash pt-3 px-4'>
                 <h2 className="ms-2 text-white">DASHBOARD</h2>
                 <Contents navigateTo={navigateTo} menus={menus} tables={tables}/>
             </div>

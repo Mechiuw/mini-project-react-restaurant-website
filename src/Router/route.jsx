@@ -14,6 +14,9 @@ import TableFormWithUiEstate from "../Table/TableForm.jsx";
 import TableListUiEstate from "../Table/TableList.jsx";
 import Shop from "../Shop/Shop.jsx";
 import LoadingAnimation from "../Components/Animation/LoadingAnimation.jsx";
+import Product from "../Products/Products.jsx";
+import ListProduct from "../Products/List/ListProduct.jsx";
+import ItemProduct from "../Products/Item/ItemProduct.jsx";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +47,19 @@ const router = createBrowserRouter([
                     {
                         path:"table-list",
                         element:<TableListUiEstate/>
+                    }
+                ]
+            },{
+                path: "product",
+                element:<Product/>,
+                children:[
+                    {
+                        path:"product-form",
+                        element: <ListProduct/>
+                    },
+                    {
+                        path:"product-list",
+                        element: <ItemProduct/>
                     }
                 ]
             },

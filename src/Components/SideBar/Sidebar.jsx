@@ -2,7 +2,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
     IconApps, IconAtom,
-    IconBrandAirtable,
+    IconBrandAirtable, IconBrandAsana,
     IconChevronDown, IconLogout2, IconSettings, IconShoppingBag,
     IconToolsKitchen3, IconUserCircle
 } from "@tabler/icons-react";
@@ -121,6 +121,14 @@ export default function Sidebar ({handleAuthentication}){
                                             <IconShoppingBag/>
                                         </i>
                                         <span>Shop</span>
+                                    </li>
+                                </Link>
+                                <Link to="product" style={{textDecoration: 'none'}}>
+                                    <li className="cursor-pointer text-white">
+                                        <i className="me-3 text-white">
+                                            <IconBrandAsana/>
+                                        </i>
+                                        <span>Package Products</span>
                                     </li>
                                 </Link>
                             </ul>
